@@ -1,73 +1,93 @@
-# Welcome to your Lovable project
+# Smart Expense Splitter
 
-## Project info
+A full-stack web application for splitting expenses among groups with payment integration, multi-currency support, and AI categorization.
 
-**URL**: https://lovable.dev/projects/89139a94-ca3d-410b-b20e-0dca3ba3fe0c
+## Features
 
-## How can I edit this code?
+- **Authentication**: Email/password & Google OAuth
+- **Group Management**: Create/manage expense groups
+- **Expense Tracking**: Add expenses with receipts, auto-categorization (OpenAI)
+- **Multi-Currency**: Auto conversion (CurrencyLayer/Fixer API)
+- **Payments**: Stripe integration for settlements
+- **Reports**: PDF/CSV export
+- **Notifications**: Email & push notifications
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+**Frontend**: React/Next.js, TailwindCSS, React Query
+**Backend**: Node.js, Express/NestJS, PostgreSQL, Prisma
+**Services**: Stripe, OpenAI, CurrencyLayer, SendGrid
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/89139a94-ca3d-410b-b20e-0dca3ba3fe0c) and start prompting.
+## Quick Setup
 
-Changes made via Lovable will be committed automatically to this repo.
+```bash
+# Clone repo
+git clone https://github.com/yourusername/smart-expense-splitter.git
+cd smart-expense-splitter
 
-**Use your preferred IDE**
+# Backend setup
+cd backend
+npm install
+cp .env.example .env  # Configure your API keys
+npx prisma migrate dev
+npm run dev
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Frontend setup (new terminal)
+cd frontend
+npm install
+cp .env.local.example .env.local  # Configure environment
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Environment Variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+**Backend (.env)**
+```env
+DATABASE_URL="postgresql://..."
+JWT_SECRET="your-secret"
+STRIPE_SECRET_KEY="sk_..."
+OPENAI_API_KEY="sk-..."
+CURRENCYLAYER_API_KEY="..."
+SENDGRID_API_KEY="..."
+GOOGLE_CLIENT_ID="..."
+GOOGLE_CLIENT_SECRET="..."
+```
 
-**Use GitHub Codespaces**
+**Frontend (.env.local)**
+```env
+NEXT_PUBLIC_API_URL="http://localhost:5000"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="pk_..."
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Database Schema
 
-## What technologies are used for this project?
+- **User**: Authentication & profile
+- **Group**: Expense groups
+- **GroupMember**: Group membership
+- **Expense**: Individual expenses
+- **Settlement**: Payment records
+- **Notification**: User notifications
 
-This project is built with:
+## Key API Endpoints
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- `POST /api/auth/login` - Authentication
+- `GET /api/groups` - User groups
+- `POST /api/groups/:id/expenses` - Add expense
+- `GET /api/groups/:id/balances` - Group balances
+- `POST /api/settlements/:id/pay` - Process payment
 
-## How can I deploy this project?
+## Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/89139a94-ca3d-410b-b20e-0dca3ba3fe0c) and click on Share -> Publish.
+**Frontend**: Vercel/Netlify
+**Backend**: Render/Railway
+**Database**: Supabase/Neon.tech
 
-## Can I connect a custom domain to my Lovable project?
+## Contributing
 
-Yes, you can!
+1. Fork the repo
+2. Create feature branch
+3. Submit pull request
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## License
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+MIT License
